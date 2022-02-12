@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Andromeda - Accueil </title>
+    <link rel="stylesheet" href="./css/index.css" />
+    <script src="./src/util.js"></script>
+  </head>
+  <body>
+    <div id="wrapper">
+      <header>
+        <h1>Andromeda</h1>
+        <h3>Entrez une URL pour afficher les résultats</h3>
+      </header>
+      <section id="formsection">
+        <img src="./img/4x/Artboard 1@4x.png" />
+        <form id="form" onsubmit="return false">
+          <label for="url">URL du fichier XML (débute avec Classics/):</label>
+          <input type="text" id="url" name="url" /><br />
+          <div id="queries"></div>
+          <input type="submit" value="Soumettre" />
+        </form>
+        <a href="./edition.html"><button>Modification des mots</button></a>
+      </section>
+      <section id="textsection">
+        <h3>Texte</h3>
+        <div id="text">
+          <div id="empty"></div>
+        </div>
+      </section>
+      <section id="wordssection">
+        <h3>Fréquence par mot</h3>
+        <div id="words">
+          <div id="empty"></div>
+        </div>
+      </section>
+      <section id="resultsection">
+        <h3>Résultats</h3>
+        <div id="results">
+          <div id="empty"></div>
+        </div>
+      </section>
+      <footer>
+        <h5>William Bouchard 2021-2022</h5>
+      </footer> 
+    </div>
+  </body>
+  <script src="./src/index.js"></script>
+</html>
