@@ -1,4 +1,4 @@
-const baseUrl = /*"http://localhost:8000"*/"https://aaad37da55ad61.lhrtunnel.link";
+const baseUrl = "http://localhost:8000";
 
 const Api = {
   async getAllWords() {
@@ -7,8 +7,7 @@ const Api = {
       const response = await fetch(endpoint);
 
       if (response.ok) {
-        let jsonResponse = await response.json();
-        return jsonResponse;
+        return await response.json();
       }
     } catch (error) {
       console.log(error);
@@ -28,8 +27,7 @@ const Api = {
       });
 
       if (response.ok) {
-        let jsonResponse = await response.json();
-        return jsonResponse;
+        return await response.json();
       }
     } catch (error) {
       console.log(error);
@@ -37,7 +35,7 @@ const Api = {
   },
 
   async put(object) {
-    const endpoint = baseUrl + "/words/"+object.id;
+    const endpoint = baseUrl + "/words/" + object.id;
 
     try {
       const data = JSON.stringify(object);
@@ -49,8 +47,7 @@ const Api = {
       });
 
       if (response.ok) {
-        let jsonResponse = await response.json();
-        return jsonResponse;
+        return await response.json();
       }
     } catch (error) {
       console.log(error);
@@ -70,9 +67,7 @@ const Api = {
       });
 
       if (response.ok) {
-        let jsonResponse = await response.json();
-        console.log(jsonResponse);
-        return jsonResponse;
+        return await response.json();
       }
     } catch (error) {
       console.log(error);
@@ -80,21 +75,16 @@ const Api = {
   },
 
   async delete(object) {
-    console.log(object);
     const endpoint = baseUrl + "/words/" + object.id;
     try {
       const response = await fetch(endpoint, { method: "DELETE" });
       if (response.ok) {
-        let jsonResponse = await response.json();
-        console.log(jsonResponse);
-        return jsonResponse;
+        return await response.json();
       }
     } catch (error) {
       console.log(error);
     }
   },
-
-
 };
 
 function createElementFromText(type, text) {
@@ -142,4 +132,8 @@ function docReady(fn) {
   } else {
     document.addEventListener("DOMContentLoaded", fn);
   }
+}
+
+function cleanRatio(ratio){
+  return (ratio * 100).toFixed(3) + "%";
 }

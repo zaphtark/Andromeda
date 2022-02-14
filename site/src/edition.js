@@ -22,31 +22,25 @@ function updateTable(e = null, edit = 0, add = false) {
     updateCurrentWords(edit);
   }
 
-  if (add) {
-    const newRow = createNewWordRow();
-    table.appendChild(newRow);
-  } else {
-    const addButton = createButton(startAdding, "+");
-    table.appendChild(addButton);
-  }
+  table.appendChild(add ? createNewWordRow() : createButton(startAdding, "+"));
 }
 
 function updateCurrentWords(edit) {
-  let wordRow = null;
   for (let word of currentData.words) {
-    if (word.id === edit) {
-      wordRow = createNewWordRow(word);
-    } else {
-      const button = createButton(startEditing, "Modifier", word.id);
-
-      wordRow = createRowFromElements([
-        createElementFromText("p", word.lemma),
-        createElementFromText("p", word.root),
-        button,
-      ]);
-    }
-    table.appendChild(wordRow);
+    table.appendChild(
+      word.id === edit ? createNewWordRow(word) : createWordRow(word)
+    );
   }
+}
+
+function createWordRow(word) {
+  const button = createButton(startEditing, "Modifier", word.id);
+
+  return createRowFromElements([
+    createElementFromText("p", word.lemma),
+    createElementFromText("p", word.root),
+    button,
+  ]);
 }
 
 function createNewWordRow(word = null) {
@@ -87,14 +81,12 @@ function startEditing(e) {
   updateTable(e, parseInt(e.srcElement.value));
 }
 
-function deleteWord(e) {
-  Api.delete({ id: parseInt(e.srcElement.value) }).then((data) => {
-    currentData = data;
-    updateTable();
-  });
+async function deleteWord(e) {
+  currentData = await Api.delete({ id: parseInt(e.srcElement.value) });
+  updateTable();
 }
 
-function editWord(e) {
+async function editWord(e) {
   const lemma = document.getElementById("lemma-input").value;
   const root = document.getElementById("root-input").value;
 
@@ -105,13 +97,11 @@ function editWord(e) {
     weight: 0.7,
   };
 
-  Api.put(newWord).then((data) => {
-    currentData = data;
-    updateTable(e);
-  });
+  currentData = await Api.put(newWord);
+  updateTable();
 }
 
-function newWord(e) {
+async function newWord(e) {
   const lemma = document.getElementById("lemma-input").value;
   const root = document.getElementById("root-input").value;
 
@@ -121,15 +111,11 @@ function newWord(e) {
     weight: 0.7,
   };
 
-  Api.post(newWord).then((data) => {
-    currentData = data;
-    updateTable();
-  });
+  currentData = await Api.post(newWord);
+  updateTable();
 }
 
-function getData() {
-  Api.getAllWords().then((data) => {
-    currentData = data;
-    updateTable();
-  });
+async function getData() {
+  currentData = await Api.getAllWords();
+  updateTable();
 }

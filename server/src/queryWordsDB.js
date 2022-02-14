@@ -6,7 +6,6 @@
 const sqlite3 = require("sqlite3");
 const SQLUtil = require("./SQLUtil");
 const QueryWord = require("./class/QueryWord");
-const { makeInsertSQL, makeUpdateSQL } = require("./SQLUtil");
 
 const db = new sqlite3.Database(
   process.env.TEST_DATABASE || "./database.sqlite"

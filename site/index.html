@@ -14,9 +14,19 @@
       <section id="formsection">
         <img src="./img/4x/Artboard 1@4x.png" />
         <form id="form" onsubmit="return false">
-          <label for="url">URL du fichier XML (débute avec Classics/):</label>
-          <input type="text" id="url" name="url" /><br />
+          <label for="text">Texte à analyser:</label>
+          <select id="textPicker" name="text">
+            <option value="Classics/aristophanes/opensource/aristoph.lys_gk.xml" selected>Lysistrata</option>
+            <option value="Classics/aristophanes/opensource/aristoph.cl_gk.xml">Les Nuées</option>
+            <option value="Classics/Aeschylus/opensource/aesch.pb_gk.xml">Prométhée enchaîné </option>
+            <option value="Classics/Aeschylus/opensource/aesch.seven_gk.xml">Les sept contre Thèbes</option>
+            <option value="Classics/Euripides/opensource/eur.her_gk.xml">Héraclès furieux </option>
+            <option value="Classics/Euripides/opensource/eur.ba_gk.xml">Bacchantes</option>
+          </select>
           <div id="queries"></div>
+          <label for="text">Précision (en vers):</label>
+          <input id="precision" name="precision" value="50"/>
+          <br>
           <input type="submit" value="Soumettre" />
         </form>
         <a href="./edition.html"><button>Modification des mots</button></a>

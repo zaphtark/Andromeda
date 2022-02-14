@@ -12,14 +12,14 @@ let currentQuery = "";
 docReady(createForm);
 
 //Fonction qui ajoute les mots depuis la base de donnée dans le formulaire
-function createForm() {
-  //Va chercher les mots
-  Api.getAllWords().then((data) => {
-    for (let word of data.words) {
-      document.getElementById("queries").appendChild(makeWord(word));
-    }
-    form.addEventListener("submit", submit);
-  });
+async function createForm() {
+  const data = await Api.getAllWords();
+
+  for (let word of data.words) {
+    document.getElementById("queries").appendChild(makeWord(word));
+  }
+
+  form.addEventListener("submit", submit);
 }
 
 function showData() {
@@ -50,7 +50,7 @@ function showWords() {
 }
 
 function showResults() {
-  const text = "Ratio total : " + currentData.data.totalRatio;
+  const text = "Ratio total : " + cleanRatio(currentData.data.totalRatio);
   results.appendChild(createElementFromText("h4", text));
 
   for (let [index, divRatio] of currentData.data.ratioBySection.entries()) {
@@ -81,17 +81,15 @@ function lookupQueries(queries, text) {
   return text;
 }
 
-function submit(form) {
+async function submit(form) {
   const reqBody = {
-    url: "../" + document.getElementById("url").value,
+    url: "../" + document.querySelector("select").value,
     queries: getCurrentQueries(),
-    precision: 50, //Pour le moment
+    precision: parseInt(document.getElementById("precision").value), //Pour le moment
   };
 
-  Api.getAlgoResult(reqBody).then((data) => {
-    currentData = data;
-    showData();
-  });
+  currentData = await Api.getAlgoResult(reqBody);
+  showData();
 }
 
 function getCurrentQueries() {
@@ -126,18 +124,30 @@ function makeWord(word) {
 function createDivSquare(divRatio, pos) {
   const precision = parseInt(currentData.data.precision);
   const square = document.createElement("div");
+
   let color = 255 - divRatio * precision * 2 * 255;
-  color = color >= 0 ? color : 0;
+  color = color > 0 ? color : 0;
+
   square.setAttribute(
     "style",
     "background-color: rgb(" + color + "," + color + "," + color + ")"
   );
   square.setAttribute("class", "square");
 
-  const lineRange = pos * precision + " - " + (pos * precision + precision);
-  const tooltip = createElementFromText("span", lineRange + ": " + divRatio);
-  tooltip.setAttribute("class", "tooltiptext");
+  if (divRatio > 0) {
+    square.appendChild(createSquareTooltip(pos, divRatio, precision));
+  }
 
-  square.appendChild(tooltip);
   return square;
+}
+
+function createSquareTooltip(pos, divRatio, precision) {
+  divRatio = cleanRatio(divRatio);
+  const lineRange = pos * precision + " - " + (pos * precision + precision);
+  const tooltip = createElementFromText(
+    "span",
+    lineRange + ":<br> " + divRatio
+  );
+  tooltip.setAttribute("class", "tooltiptext");
+  return tooltip;
 }
