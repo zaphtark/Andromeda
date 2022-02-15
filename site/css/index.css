@@ -1,14 +1,17 @@
 body {
-  background-color: lightcyan;
+  color: #151426;
+  font-family: 'Raleway', sans-serif;
+  box-sizing: border-box;
 }
 
+/*Style du fond (en arrière du body)*/
 body::before {
   width: 100%;
   height: 100%;
   content: "";
-  background-image: url(../img/bg.jpg);
+  background-image: url(../img/Fond_1200.png);
   background-size: cover;
-  opacity: 0.15;
+  opacity: 100%;
   position: fixed;
   top: 0px;
   right: 0px;
@@ -16,31 +19,122 @@ body::before {
   left: 0px;
 }
 
+/*classe Wrapper*/
+
 #wrapper {
-  width: 750px;
+  width: 80vw;
   margin: auto;
-  margin-top: 30px;
+  margin-top: 3vw;
+  margin-bottom: 3vw;
   position: relative;
-  padding: 30px;
-  padding-bottom: 10px;
-  background: rgb(200, 200, 200, 0.7);
-  border: rgb(50, 50, 50, 0.4) solid 2px;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  padding: 5vw;
+  padding-bottom: 3vw;
+  background: #fff;
   border-radius: 25px;
+  box-shadow: 0px 0px 50px #000;
+}
+
+h1 {
+  color: #151426;
+  text-decoration: underline;
+  text-align: center;
+  font-family: 'Abril Fatface', cursive;
+  padding-bottom: 2vw;
 }
 
 h3 {
   text-align: center;
-}
-
-h1 {
-  color: white;
-  text-shadow: 1px 1px blue, 2px 2px fuchsia, 3px 3px blue;
-  text-align: center;
+  color: #80c7f2;
 }
 
 p {
   text-align: justify;
+}
+
+/*Header du Wrapper*/
+
+header > h1 {
+  margin-top: 0;
+}
+
+img {
+  position: absolute;
+  top: 3vw;
+  right: 3vw;
+}
+
+img:hover {
+  animation: spin 3s infinite;
+  animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/*Flexbox pour formsection, wordssection, resultsection et textsection*/
+#conteneurRangee {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#conteneurColonne {
+  display: flex;
+  flex-direction: column;
+  flex: 0 1 auto;
+}
+
+
+/*Sections*/
+
+#formsection, #wordssection, #resultsection {
+  width: 45vw;
+}
+
+#textsection {
+  width: 30vw;
+
+}
+
+#text {
+  height: 50vh;
+  padding: 0.5em 1em;
+  border: #e6e6e6 solid 2px;
+  box-shadow: 0px 0px 50px #e6e6e6;
+  overflow: auto;
+  resize: vertical;
+  border-radius: 10px;
+  min-height: 30vh;
+}
+
+
+#results, #words, #form {
+  padding: 0.5em 1em;
+  border: #e6e6e6 solid 2px;
+  box-shadow: 0px 0px 50px #e6e6e6;
+  height: 10vh;
+  overflow: auto;
+  resize: vertical;
+  border-radius: 10px;
+  
+}
+
+#results, #words {
+  min-height: 15vh;
+}
+
+#results {
+  background-color: #80c7f2;
+}
+
+#form {
+  min-height: 20vh;
 }
 
 #url {
@@ -51,31 +145,98 @@ p {
   height: 100px;
 }
 
-#results,
-#text,
-#words {
-  padding: 0.5em 1em;
-  border: rgb(50, 50, 50, 0.4) solid 2px;
-  height: 100px;
-  overflow: auto;
-  resize: vertical;
-  border-radius: 10px;
-  min-height: 100px;
+/*Style du formulaire (précisions)*/
+
+#choisirText {
+  padding-top: 0.5vw;
+  padding-bottom: 0.5vw;
+}
+
+#textPicker, #precision {
+  border: #e6e6e6 solid 2px;
+  font-family: 'Raleway', sans-serif;
+}
+
+#precisionDiv {
+  padding-bottom: 0.5vw;
+}
+
+#queries {
+  padding: 0.5vw 0vw;
+}
+
+.centreBouton {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0.5vw 0vw;
+}
+
+.bouton {
+  color: #151426;
+  font-weight: 900;
+  background-color: #80c7f2;
+  padding: 0.5vw;
+  border-radius: 5px;
+  border: none;
+  transition: color 500ms, background-color 500ms;
+}
+
+.bouton:hover {
+  color: #80c7f2;
+  background-color: #151426;
+}
+
+
+/*Style du texte (précision)*/
+
+#text > h3 {
+  color: #151426;
+}
+
+
+/*Pade pour l'édition des mots (ouvre une autre fenêtre)*/
+
+#conteneurEdition {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2vw;
 }
 
 #edition {
-  border: rgb(50, 50, 50, 0.4) solid 2px;
-  height: 400px;
+  padding: 0.5em 1em;
+  border: #e6e6e6 solid 2px;
+  box-shadow: 0px 0px 50px #e6e6e6;
+  height: 10vh;
   overflow: auto;
+  resize: vertical;
+  border-radius: 10px;
+  width: 40vw;
+  height: 40vh;
+}
+
+th, td {
+  padding-left: 1vw;
+  padding-right: 1vw;
+}
+
+#results-table > button {
+  color: #151426;
+  font-weight: 900;
+  background-color: #80c7f2;
+  padding: 0.5vw;
+  border-radius: 5px;
+  border: none;
+  /*transition: color 500ms, background-color 500ms;*/
+}
+
+#lemma-input, #root-input {
+  border: #e6e6e6 solid 2px;
 }
 
 footer {
   text-align: center;
 }
 
-img {
-  float: right;
-}
 
 #databasesection {
   text-align: center;
@@ -88,6 +249,7 @@ img {
   display: inline-block;
   position: relative;
   margin: 0;
+  border-radius: 5px;
 }
 
 /* Tooltip text */
@@ -111,18 +273,4 @@ img {
 /* Show the tooltip text when you mouse over the tooltip container */
 .square:hover .tooltiptext {
   visibility: visible;
-}
-
-img:hover {
-  animation: spin 3s infinite;
-  animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
 }

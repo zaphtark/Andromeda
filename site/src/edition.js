@@ -35,6 +35,7 @@ function updateCurrentWords(edit) {
 
 function createWordRow(word) {
   const button = createButton(startEditing, "Modifier", word.id);
+  button.setAttribute("class", "bouton");
 
   return createRowFromElements([
     createElementFromText("p", word.lemma),
@@ -53,6 +54,7 @@ function createNewWordRow(word = null) {
     "Confirmer",
     word?.id
   );
+  confirmButton.setAttribute("class", "bouton");
 
   const wordRow = createRowFromElements([lemmaInput, rootInput, confirmButton]);
 
@@ -63,6 +65,7 @@ function createNewWordRow(word = null) {
 
   const cancelButton = createButton(updateTable, "-");
   wordRow.lastElementChild.appendChild(cancelButton);
+  cancelButton.setAttribute("class", "bouton");
 
   return wordRow;
 }

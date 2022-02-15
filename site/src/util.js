@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:8000";
+const baseUrl = "https://www.api.scriptantiqua.com";
 
 const Api = {
   async getAllWords() {

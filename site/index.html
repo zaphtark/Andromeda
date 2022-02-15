@@ -1,58 +1,86 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Andromeda - Accueil </title>
-    <link rel="stylesheet" href="./css/index.css" />
-    <script src="./src/util.js"></script>
-  </head>
-  <body>
-    <div id="wrapper">
-      <header>
-        <h1>Andromeda</h1>
-        <h3>Entrez une URL pour afficher les résultats</h3>
-      </header>
-      <section id="formsection">
-        <img src="./img/4x/Artboard 1@4x.png" />
-        <form id="form" onsubmit="return false">
-          <label for="text">Texte à analyser:</label>
-          <select id="textPicker" name="text">
-            <option value="Classics/aristophanes/opensource/aristoph.lys_gk.xml" selected>Lysistrata</option>
-            <option value="Classics/aristophanes/opensource/aristoph.cl_gk.xml">Les Nuées</option>
-            <option value="Classics/Aeschylus/opensource/aesch.pb_gk.xml">Prométhée enchaîné </option>
-            <option value="Classics/Aeschylus/opensource/aesch.seven_gk.xml">Les sept contre Thèbes</option>
-            <option value="Classics/Euripides/opensource/eur.her_gk.xml">Héraclès furieux </option>
-            <option value="Classics/Euripides/opensource/eur.ba_gk.xml">Bacchantes</option>
-          </select>
-          <div id="queries"></div>
-          <label for="text">Précision (en vers):</label>
-          <input id="precision" name="precision" value="50"/>
-          <br>
-          <input type="submit" value="Soumettre" />
-        </form>
-        <a href="./edition.html"><button>Modification des mots</button></a>
-      </section>
+
+<head>
+  <title>Andromeda - Accueil </title>
+  <link rel="stylesheet" href="./css/index.css" />
+  <script src="./src/util.js"></script>
+
+  <!--Liens pour les polices (Google Fonts)-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <div id="wrapper">
+    <header>
+      <h1>Andromeda</h1>
+      <img src="./img/4x/Artboard 1@4x.png" />
+    </header>
+
+    <div id="conteneurRangee">
+      <div id="conteneurColonne">
+        <section id="formsection">
+          <form id="form" onsubmit="return false">
+            <div id="choisirText">
+              <label for="text">Texte à analyser:</label>
+              <select id="textPicker" name="text">
+                <option value="Classics/Aristophanes/opensource/aristoph.lys_gk.xml" selected>Lysistrata</option>
+                <option value="Classics/Aristophanes/opensource/aristoph.cl_gk.xml">Les Nuées</option>
+                <option value="Classics/Aeschylus/opensource/aesch.pb_gk.xml">Prométhée enchaîné </option>
+                <option value="Classics/Aeschylus/opensource/aesch.seven_gk.xml">Les sept contre Thèbes</option>
+                <option value="Classics/Euripides/opensource/eur.her_gk.xml">Héraclès furieux </option>
+                <option value="Classics/Euripides/opensource/eur.ba_gk.xml">Bacchantes</option>
+              </select>
+            </div>
+            
+            <div id="queries"></div>
+
+            <div id="precisionDiv">
+              <label for="text">Précision (en vers):</label>
+              <input id="precision" name="precision" value="50" />
+            </div>
+
+            <br>
+            <div class="centreBouton">
+              <input class="bouton" type="submit" value="Soumettre" />
+              <a href="./edition.html"><button class="bouton">Modification des mots</button></a>
+            </div>
+          </form>
+        </section>
+
+        <section id="wordssection">
+          <h3>Fréquence par mot</h3>
+          <div id="words">
+            <div id="empty"></div>
+          </div>
+        </section>
+
+        <section id="resultsection">
+          <h3>Résultats</h3>
+          <div id="results">
+            <div id="empty"></div>
+          </div>
+        </section>
+      </div>
+
+
       <section id="textsection">
         <h3>Texte</h3>
         <div id="text">
           <div id="empty"></div>
         </div>
       </section>
-      <section id="wordssection">
-        <h3>Fréquence par mot</h3>
-        <div id="words">
-          <div id="empty"></div>
-        </div>
-      </section>
-      <section id="resultsection">
-        <h3>Résultats</h3>
-        <div id="results">
-          <div id="empty"></div>
-        </div>
-      </section>
-      <footer>
-        <h5>William Bouchard 2021-2022</h5>
-      </footer> 
     </div>
-  </body>
-  <script src="./src/index.js"></script>
+
+    <footer>
+      <h5>William Bouchard 2021-2022</h5>
+    </footer>
+  </div>
+</body>
+<script src="./src/index.js"></script>
+
 </html>
