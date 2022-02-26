@@ -11,12 +11,12 @@ body::before {
   content: "";
   background-image: url(../img/Fond_1200.png);
   background-size: cover;
-  opacity: 100%;
+  opacity: 1;
   position: fixed;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 
 /*classe Wrapper*/
@@ -24,10 +24,10 @@ body::before {
 #wrapper {
   width: 80vw;
   margin: auto;
-  margin-top: 3vw;
+  margin-top: 1vw;
   margin-bottom: 3vw;
   position: relative;
-  padding: 5vw;
+  padding: 2vw;
   padding-bottom: 3vw;
   background: #fff;
   border-radius: 25px;
@@ -126,7 +126,7 @@ img:hover {
 }
 
 #results, #words {
-  min-height: 15vh;
+  min-height: 10vh;
 }
 
 #results {
@@ -134,7 +134,7 @@ img:hover {
 }
 
 #form {
-  min-height: 20vh;
+  min-height: 30vh;
 }
 
 #url {
@@ -273,4 +273,12 @@ footer {
 /* Show the tooltip text when you mouse over the tooltip container */
 .square:hover .tooltiptext {
   visibility: visible;
+}
+
+mark:hover{
+  background-color: orange;
+}
+
+mark:active{
+  background-color: red;
 }

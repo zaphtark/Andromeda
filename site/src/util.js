@@ -1,8 +1,21 @@
-const baseUrl = "https://www.api.scriptantiqua.com";
+const baseUrl = /*"https://www.api.scriptantiqua.com"*/"http://localhost:8000";
 
 const Api = {
   async getAllWords() {
     const endpoint = baseUrl + "/words?";
+    try {
+      const response = await fetch(endpoint);
+
+      if (response.ok) {
+        return await response.json();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  async getAllFiles(){
+    const endpoint = baseUrl + "/files?";
     try {
       const response = await fetch(endpoint);
 

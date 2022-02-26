@@ -13,6 +13,7 @@ function updateTable(e = null, edit = 0, add = false) {
       createElementFromText("p", "Lemme"),
       createElementFromText("p", "Racine"),
       createElementFromText("p", "Options"),
+      createElementFromText("p", "Pondération"),
     ],
     true
   );
@@ -40,6 +41,7 @@ function createWordRow(word) {
   return createRowFromElements([
     createElementFromText("p", word.lemma),
     createElementFromText("p", word.root),
+    createElementFromText("p", word.weight),
     button,
   ]);
 }
@@ -49,6 +51,8 @@ function createNewWordRow(word = null) {
 
   const rootInput = createInput(word?.root, "root-input");
 
+  const weightInput = createInput(word?.weight, "weight-input");
+
   const confirmButton = createButton(
     word ? editWord : newWord,
     "Confirmer",
@@ -56,16 +60,19 @@ function createNewWordRow(word = null) {
   );
   confirmButton.setAttribute("class", "bouton");
 
-  const wordRow = createRowFromElements([lemmaInput, rootInput, confirmButton]);
+  const wordRow = createRowFromElements([lemmaInput, rootInput, weightInput, confirmButton]);
 
   if (word) {
     const deleteButton = createButton(deleteWord, "Supprimer", word.id);
+    deleteButton.setAttribute("class", "bouton");
+
     wordRow.lastElementChild.appendChild(deleteButton);
   }
 
   const cancelButton = createButton(updateTable, "-");
-  wordRow.lastElementChild.appendChild(cancelButton);
   cancelButton.setAttribute("class", "bouton");
+
+  wordRow.lastElementChild.appendChild(cancelButton);
 
   return wordRow;
 }
@@ -90,30 +97,13 @@ async function deleteWord(e) {
 }
 
 async function editWord(e) {
-  const lemma = document.getElementById("lemma-input").value;
-  const root = document.getElementById("root-input").value;
-
-  const newWord = {
-    id: parseInt(e.srcElement.value),
-    lemma: lemma,
-    root: root,
-    weight: 0.7,
-  };
-
+  const newWord = createNewWord(parseInt(e.srcElement.value));
   currentData = await Api.put(newWord);
   updateTable();
 }
 
 async function newWord(e) {
-  const lemma = document.getElementById("lemma-input").value;
-  const root = document.getElementById("root-input").value;
-
-  const newWord = {
-    lemma: lemma,
-    root: root,
-    weight: 0.7,
-  };
-
+  const newWord = createNewWord();
   currentData = await Api.post(newWord);
   updateTable();
 }
@@ -121,4 +111,19 @@ async function newWord(e) {
 async function getData() {
   currentData = await Api.getAllWords();
   updateTable();
+}
+
+function createNewWord(id = null) {
+  const lemma = document.getElementById("lemma-input").value;
+  const root = document.getElementById("root-input").value;
+  const weight = document.getElementById("weight-input").value;
+
+  const newWord = {
+    lemma: lemma,
+    root: root,
+    weight: weight,
+  };
+
+  if (id) { newWord[id] = id }
+  return newWord;
 }

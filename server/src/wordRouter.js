@@ -1,13 +1,11 @@
 const express = require("express");
-const queryWordsDB = require("./queryWordsDB");
+const queryWordsDB = require("./databases").queryWordsDB;
 
 const wordRouter = express.Router();
 
 //Determine req.word selon l'ID demandé
 wordRouter.param("wordId", (req, res, next, wordId) => {
-  console.log(wordId);
   queryWordsDB.getById(wordId, (err, word) => {
-    console.log("Test");
     if (err) {
       next(err);
     } else if (word) {
@@ -71,7 +69,6 @@ wordRouter.delete("/:wordId", (req, res, next) => {
     if (err) {
       next(err);
     } else {
-      console.log(words);
       res.status(201).json({ words: words });
     }
   });
