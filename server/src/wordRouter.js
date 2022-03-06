@@ -26,7 +26,7 @@ wordRouter.get("/", (req, res, next) => {
 wordRouter.get("/:wordId", (req, res, next) => {
   res.status(200).json({ word: req.word });
 });
-
+/*
 //POST un nouveau mot
 wordRouter.post("/", (req, res, next) => {
   const newWord = req.body;
@@ -73,5 +73,5 @@ wordRouter.delete("/:wordId", (req, res, next) => {
     }
   });
 });
-
+*/
 module.exports = wordRouter;

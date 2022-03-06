@@ -1,81 +1,84 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <title>Andromeda - Accueil</title>
+    <link rel="stylesheet" href="./css/index.css" />
+    <script src="./src/util.js"></script>
 
-<head>
-  <title>Andromeda - Accueil </title>
-  <link rel="stylesheet" href="./css/index.css" />
-  <script src="./src/util.js"></script>
+    <!--Liens pour les polices (Google Fonts)-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <meta charset="UTF-8" />
+  </head>
 
-  <!--Liens pour les polices (Google Fonts)-->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-    rel="stylesheet">
-    <meta charset="UTF-8">
-</head>
+  <body>
+    <div id="wrapper">
+      <header>
+        <h1>Andromeda</h1>
+        <img src="./img/4x/Artboard 1@4x.png" />
+      </header>
 
-<body>
-  <div id="wrapper">
-    <header>
-      <h1>Andromeda</h1>
-      <img src="./img/4x/Artboard 1@4x.png" />
-    </header>
+      <div id="conteneurRangee">
+        <div id="conteneurColonne">
+          <section id="formsection">
+            <form id="form" onsubmit="return false">
+              <div id="choisirText">
+                <label for="text">Texte à analyser:</label>
+                <select id="textPicker" name="text"></select>
+              </div>
 
-    <div id="conteneurRangee">
-      <div id="conteneurColonne">
-        <section id="formsection">
-          <form id="form" onsubmit="return false">
-            <div id="choisirText">
-              <label for="text">Texte à analyser:</label>
-              <select id="textPicker" name="text">
-              </select>
+              <div id="queries"></div>
+
+              <div id="precisionDiv">
+                <label for="text">Précision (en vers):</label>
+                <input id="precision" name="precision" value="50" />
+              </div>
+
+              <br />
+              <div class="centreBouton">
+                <input class="bouton" type="submit" value="Soumettre" />
+                <a href="./edition.html"
+                  ><button class="bouton">Modification des mots</button></a
+                >
+              </div>
+            </form>
+          </section>
+
+          <section id="wordssection">
+            <h3>Fréquence par mot</h3>
+            <div id="words">
+              <div id="empty"></div>
             </div>
-            
-            <div id="queries"></div>
+          </section>
 
-            <div id="precisionDiv">
-              <label for="text">Précision (en vers):</label>
-              <input id="precision" name="precision" value="50" />
+          <section id="resultsection">
+            <h3>Résultats</h3>
+            <div id="results">
+              <div id="empty"></div>
             </div>
+          </section>
+        </div>
 
-            <br>
-            <div class="centreBouton">
-              <input class="bouton" type="submit" value="Soumettre" />
-              <a href="./edition.html"><button class="bouton">Modification des mots</button></a>
+        <section id="textsection">
+          <h3>Texte</h3>
+          <div>
+            <div id="text">
+              <div id="empty"></div>
             </div>
-          </form>
-        </section>
+            <div id="textbuttons">
 
-        <section id="wordssection">
-          <h3>Fréquence par mot</h3>
-          <div id="words">
-            <div id="empty"></div>
-          </div>
-        </section>
-
-        <section id="resultsection">
-          <h3>Résultats</h3>
-          <div id="results">
-            <div id="empty"></div>
+            </div>
           </div>
         </section>
       </div>
-
-
-      <section id="textsection">
-        <h3>Texte</h3>
-        <div id="text">
-          <div id="empty"></div>
-        </div>
-      </section>
+      <footer>
+        <h5>William Bouchard 2021-2022</h5>
+      </footer>
     </div>
-
-    <footer>
-      <h5>William Bouchard 2021-2022</h5>
-    </footer>
-  </div>
-</body>
-<script src="./src/index.js"></script>
-
+  </body>
+  <script src="./src/index.js"></script>
 </html>

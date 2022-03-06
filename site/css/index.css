@@ -1,6 +1,6 @@
 body {
   color: #151426;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   box-sizing: border-box;
 }
 
@@ -38,7 +38,7 @@ h1 {
   color: #151426;
   text-decoration: underline;
   text-align: center;
-  font-family: 'Abril Fatface', cursive;
+  font-family: "Abril Fatface", cursive;
   padding-bottom: 2vw;
 }
 
@@ -90,16 +90,16 @@ img:hover {
   flex: 0 1 auto;
 }
 
-
 /*Sections*/
 
-#formsection, #wordssection, #resultsection {
+#formsection,
+#wordssection,
+#resultsection {
   width: 45vw;
 }
 
 #textsection {
   width: 30vw;
-
 }
 
 #text {
@@ -113,8 +113,9 @@ img:hover {
   min-height: 30vh;
 }
 
-
-#results, #words, #form {
+#results,
+#words,
+#form {
   padding: 0.5em 1em;
   border: #e6e6e6 solid 2px;
   box-shadow: 0px 0px 50px #e6e6e6;
@@ -122,10 +123,10 @@ img:hover {
   overflow: auto;
   resize: vertical;
   border-radius: 10px;
-  
 }
 
-#results, #words {
+#results,
+#words {
   min-height: 10vh;
 }
 
@@ -152,9 +153,10 @@ img:hover {
   padding-bottom: 0.5vw;
 }
 
-#textPicker, #precision {
+#textPicker,
+#precision {
   border: #e6e6e6 solid 2px;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
 }
 
 #precisionDiv {
@@ -186,13 +188,11 @@ img:hover {
   background-color: #151426;
 }
 
-
 /*Style du texte (précision)*/
 
 #text > h3 {
   color: #151426;
 }
-
 
 /*Pade pour l'édition des mots (ouvre une autre fenêtre)*/
 
@@ -214,7 +214,8 @@ img:hover {
   height: 40vh;
 }
 
-th, td {
+th,
+td {
   padding-left: 1vw;
   padding-right: 1vw;
 }
@@ -229,14 +230,14 @@ th, td {
   /*transition: color 500ms, background-color 500ms;*/
 }
 
-#lemma-input, #root-input {
+#lemma-input,
+#root-input {
   border: #e6e6e6 solid 2px;
 }
 
 footer {
   text-align: center;
 }
-
 
 #databasesection {
   text-align: center;
@@ -270,15 +271,37 @@ footer {
   margin-left: -60px;
 }
 
+mark{
+  position:relative;
+}
+
+mark .tooltiptext{
+  visibility: hidden;
+  width: 100px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  position: absolute;
+  z-index: 1;
+  width: 120px;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -60px;
+}
+
 /* Show the tooltip text when you mouse over the tooltip container */
-.square:hover .tooltiptext {
+.square:hover .tooltiptext,
+mark:hover .tooltiptext {
   visibility: visible;
 }
 
-mark:hover{
+mark:hover {
   background-color: orange;
 }
 
-mark:active{
+mark:active {
   background-color: red;
 }

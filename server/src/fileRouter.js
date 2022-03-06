@@ -26,7 +26,7 @@ fileRouter.get("/", (req, res, next) => {
 fileRouter.get("/:fileId", (req, res, next) => {
   res.status(200).json({ file: req.file });
 });
-
+/*
 //POST un nouveau mot
 fileRouter.post("/", (req, res, next) => {
   const newFile = req.body;
@@ -73,5 +73,5 @@ fileRouter.delete("/:fileId", (req, res, next) => {
     }
   });
 });
-
+*/
 module.exports = fileRouter;

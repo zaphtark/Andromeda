@@ -30,6 +30,9 @@ module.exports = class XMLFile {
                 //Fonction qui se trouve actuellemment dans Text.js
                 content = makeTheatreContent($, this.getLanguage());
                 break;
+            case "prose":
+                content = makeProseContent($, this.getLanguage());
+                break;
         }
 
         return content;
@@ -97,7 +100,7 @@ makeTheatreContent = ($, language) => {
                                     lastSpeaker = greekify(lastSpeaker);
                                 }
 
-                                const id = content.length+1;
+                                const id = content.length + 1;
                                 content.push(new Division(id, lastSpeaker, lastLine));
                                 lastLine = [];
                             }
@@ -106,14 +109,93 @@ makeTheatreContent = ($, language) => {
                             break;
 
                         case "l":
-                            const divId = content.length +1;
+                            const divId = content.length + 1;
                             const text = child.children[0].data;
-                            lastLine.push(new Line(lineCounter,text,divId));
+                            lastLine.push(new Line(lineCounter, text, divId));
                             lineCounter++;
                             break;
                     }
                 }
             });
+        });
+    return content;
+}
+
+makeTheatreContent = ($, language) => {
+    const content = [];
+    let lastSpeaker = "";
+    let lastLine = [];
+    let lineCounter = 1;
+
+    $("body")
+        .find("sp")
+        .each((i, elem) => {
+            elem.children.forEach((child) => {
+                if (child.type === "tag" && child.children[0]) {
+                    switch (child.name) {
+                        case "speaker":
+                            if (lastLine && lastSpeaker) {
+
+                                //Changer le betacode pour du grec au besoin
+                                if (language == "Greek") {
+                                    for (let line of lastLine) {
+                                        line.text = greekify(line.text);
+                                    }
+                                    lastSpeaker = greekify(lastSpeaker);
+                                }
+
+                                const id = content.length + 1;
+                                content.push(new Division(id, lastSpeaker, lastLine));
+                                lastLine = [];
+                            }
+
+                            lastSpeaker = child.children[0].data;
+                            break;
+
+                        case "l":
+                            const divId = content.length + 1;
+                            const text = child.children[0].data;
+                            lastLine.push(new Line(lineCounter, text, divId));
+                            lineCounter++;
+                            break;
+                    }
+                }
+            });
+        });
+    return content;
+}
+
+//LE NONNOS DOIT ETRE RENOMME POUR QUE CA MARCHE
+makeProseContent = ($, language) => {
+    const content = [];
+    let lastDivText = [];
+    let lineCounter = 1;
+    let divCounter = 1;
+
+    $("body")//Pour chaque livre
+        .find("div1")
+        .each((i, elem) => {
+            //Pour chaque enfant de chaque livre
+            elem.children.forEach((child) => {
+                //Pour chaque tag dans chaque enfant
+                if (child.children) {
+                    child.children.forEach((grandChild) => {
+                        if (grandChild.type == "text") {
+                            console.log(grandChild);
+                            let text = grandChild.data;
+                            if (language == "Greek") {
+                                text = greekify(text);
+                            }
+                            lastDivText.push(new Line(lineCounter, text, divCounter));
+                            lineCounter++;
+                        }
+
+                    })
+                }
+            });
+            content.push(new Division(divCounter, "Book " + divCounter, lastDivText));
+            lastDivText = [];
+            divCounter++;
         });
     return content;
 }
