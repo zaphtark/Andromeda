@@ -1,11 +1,14 @@
+const addFrequencies = require("../utils");
+
 module.exports = class Text {
   constructor(XMLFile) {
+    this.id = XMLFile.id;
     this.author = XMLFile.getAuthor();
     this.title = XMLFile.getTitle();
     this.edition = XMLFile.getEdition();
     this.language = XMLFile.getLanguage();
     this.content = XMLFile.getContent();
-    this.frequency = this.getWordFrequency();
+    this.frequency = this.getFrequency();
     this.length = this.getLength();
   }
 
@@ -17,26 +20,14 @@ module.exports = class Text {
     return length;
   }
 
-  getWordFrequency() {
-    const frequency = {};
+  getFrequency() {
+    const frequencies = [];
+
     for (let division of this.content) {
-      const cleanText = division.cleanText();
-      for (let line of cleanText) {
-        if (line) {
-          for (let word of line.split(" ")) {
-            if (frequency[word]) {
-              frequency[word]++;
-            } else {
-              frequency[word] = 1;
-            }
-          }
-        }
-
-      }
-
+      frequencies.push(division.frequency);
     }
 
-    return frequency;
+    return addFrequencies(frequencies);
   }
 };
 

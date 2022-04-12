@@ -3,7 +3,9 @@
   <head>
     <title>Andromeda - Accueil</title>
     <link rel="stylesheet" href="./css/index.css" />
-    <script src="./src/util.js"></script>
+    <script src="./src/APIUtil.js"></script>
+    <script src="./src/DataUtil.js"></script>
+    <script src="./src/DOMUtil.js"></script>
 
     <!--Liens pour les polices (Google Fonts)-->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -51,6 +53,10 @@
           <section id="wordssection">
             <h3>Fréquence par mot</h3>
             <div id="words">
+              <div id="empty"></div>
+            </div>
+            <h3>Mots périphériques</h3>
+            <div id="relatedwords">
               <div id="empty"></div>
             </div>
           </section>

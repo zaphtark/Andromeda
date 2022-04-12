@@ -1,62 +1,75 @@
+const texts = require("../texts");
 const databases = require("../databases");
+const addFrequencies = require("../utils");
+
 const Section = require("./Section");
-const Text = require("./Text");
+
 
 module.exports = class AlgoResult {
   constructor(fileID, queries, precision) {
-    const XMLFile = databases.XMLFilesDB.getById(fileID);
-    this.text = new Text(XMLFile);
+    this.text = texts.getById(fileID);
 
     this.queries = databases.queryWordsDB.getByIds(queries);
     this.precision = precision;
+    this.sectionedText = this.getSections();
 
     this.totalQueryFrequency = this.getTotalQueryFrequency();
+    this.totalHits = this.getTotalHits();
     this.totalRatio = this.getTotalRatio();
 
-    this.sectionedText = this.getSections();
+    this.totalRelatedWords = this.getTotalRelatedWords();
   }
 
   getTotalQueryFrequency = () => {
-    const results = {};
-
-    for (let query of this.queries) {
-      results[query.lemma] = 0;
-
-      for (let word in this.text.frequency) {
-        if (query.regex.test(word)) {
-          results[query.lemma] += this.text.frequency[word];
-        }
-      }
+    let frequencies = [];
+    for (let section of this.sectionedText) {
+      frequencies.push(section.queryFrequency);
     }
+    return addFrequencies(frequencies);
+  }
 
-    return results;
+  getTotalRelatedWords = () => {
+    let frequencies = [];
+    for (let section of this.sectionedText) {
+      frequencies.push(section.relatedWords);
+    }
+    return addFrequencies(frequencies);
   }
 
   getTotalRatio = () => {
-    const textLength = this.text.getLength();
+    return this.totalHits / this.text.length;
+  };
+
+  getTotalHits = () => {
     let totalHits = 0;
 
     for (let query in this.totalQueryFrequency) {
       totalHits += this.totalQueryFrequency[query];
     }
-
-    return totalHits / textLength;
-  };
+    return totalHits;
+  }
 
   getSections = () => {
     const sections = [];
     let lastLine = [];
-    for (let sectionText of this.text.content) {
-      for (let line of sectionText.text) {
+    console.log(this.text);
+    for (let division of this.text.content) {
+      for (let line of division.text) {
+        const id = sections.length + 1;
         if (lastLine.length < this.precision) {
           lastLine.push(line);
         } else {
-          const id = sections.length + 1;
           sections.push(new Section(lastLine, this.queries, id));
-          lastLine = [];
+          lastLine = [line];
         }
       }
     }
+
+    if (lastLine) {
+      const id = sections.length + 1;
+      sections.push(new Section(lastLine, this.queries, id));
+    }
+
     return sections;
   };
 };

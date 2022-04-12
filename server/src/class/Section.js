@@ -1,3 +1,5 @@
+const addFrequencies = require("../utils");
+
 module.exports = class Section {
     constructor(text, queries, id) {
         this.id = id
@@ -5,97 +7,59 @@ module.exports = class Section {
         this.length = this.getLength();
         this.frequency = this.getFrequency();
         this.queryFrequency = this.getQueryFrequency(queries);
+        this.totalHits = this.getTotalHits();
         this.ratio = this.getRatio();
         this.length = this.getLength();
+        this.relatedWords = this.getRelatedWords();
     }
-
-    cleanString = (str) => {
-        //Fonction degueulasse
-        const purgeChar = [",", ".", ";", ":", "—", "†"];
-        let tempText = str;
-        for (let char of purgeChar) {
-            if (tempText) {
-                tempText = tempText.split(char).join("");
-            }
-        }
-        return tempText;
-    };
-
-    getStringFrequency = (str) => {
-        str = this.cleanString(str);
-        const frequency = {};
-
-        for (let word of str.split(" ")) {
-            if (frequency[word]) {
-                frequency[word]++;
-            } else {
-                frequency[word] = 1;
-            }
-        }
-        return frequency;
-    };
-
-    addFrequencies = (frequencies) => {
-        const result = {};
-
-        for (let frequency of frequencies) {
-            for (let word in frequency) {
-                if (result[word]) {
-                    result[word] += frequency[word];
-                } else {
-                    result[word] = frequency[word];
-                }
-            }
-        }
-
-        return result;
-    };
 
     getLength = () => {
         let length = 0;
-
         for (let line of this.text) {
-            length += this.cleanString(line.text).split(" ").length;
+            length += line.length;
         }
-
         return length;
     }
 
     getFrequency = () => {
         let frequencies = [];
-
-        for (let part of this.text) {
-            frequencies.push(this.getStringFrequency(part.text));
+        for (let line of this.text) {
+            frequencies.push(line.frequency);
         }
-        frequencies = this.addFrequencies(frequencies);
-
-        return frequencies;
+        return addFrequencies(frequencies);
     };
 
     getQueryFrequency = (queries) => {
-        const result = {};
+        let frequencies = [];
+        for (let line of this.text) {
+            frequencies.push(line.getQueryFrequency(queries));
+        }
+        return addFrequencies(frequencies);
+    };
 
-        for (let query of queries) {
-            result[query.lemma] = 0;
-
-            for (let word in this.frequency) {
-                if (query.regex.test(word)) {
-                    result[query.lemma] += this.frequency[word];
-                }
+    getRelatedWords = () => {
+        let frequencies = [];
+        for (let line of this.text) {
+            if (line.targeted) {
+                frequencies.push(line.frequency);
             }
         }
-
-        return result;
+        return addFrequencies(frequencies);
     };
 
     getRatio = () => {
+        return this.totalHits / this.length;
+    };
+
+    getTotalHits = () => {
         let totalHits = 0;
 
         for (let query in this.queryFrequency) {
             totalHits += this.queryFrequency[query];
         }
 
-        return totalHits / this.length;
-    };
+        return totalHits;
+    }
+
 }
 

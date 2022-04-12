@@ -63,7 +63,7 @@ img {
   right: 3vw;
 }
 
-img:hover {
+img:hover, .loading {
   animation: spin 3s infinite;
   animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
@@ -115,7 +115,8 @@ img:hover {
 
 #results,
 #words,
-#form {
+#form,
+#relatedwords {
   padding: 0.5em 1em;
   border: #e6e6e6 solid 2px;
   box-shadow: 0px 0px 50px #e6e6e6;
@@ -126,7 +127,8 @@ img:hover {
 }
 
 #results,
-#words {
+#words,
+#relatedwords {
   min-height: 10vh;
 }
 

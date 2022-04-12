@@ -1,45 +1,29 @@
+const addFrequencies = require("../utils");
+
 module.exports = class Division {
   constructor(id, name, text) {
     this.id = id;
     this.name = name;
-    this.text = text;
+    this.text = text; //Array of Line objects
     this.length = this.getLength();
+    this.frequency = this.getFrequency();
   }
+
   getLength() {
     let length = 0;
-    for(let line of this.text){
-      length+=line.getLength();
+    for (let line of this.text) {
+      length += line.length;
     }
     return length
   }
-  cleanText() {
-    const cleanText = [];
-    //Fonction degueulasse
-    const purgeChar = [",", ".", ";", ":", "—", "†"];
+
+  getFrequency() {
+    const frequencies = [];
+
     for (let line of this.text) {
-      console.log(line.text);
-      let text = line.text;
-      for (let char of purgeChar) {
-        text = text ? text.split(char).join("") : null;
-      }
-      cleanText.push(text);
+      frequencies.push(line.frequency);
     }
 
-    return cleanText;
-  }
-  makeFrequency() {
-    const frequency = {};
-    const cleanText = this.cleanText();
-
-    for (let line of cleanText) {
-      for (let word of line.text.split(" ")) {
-        if (frequency[word]) {
-          frequency[word]++;
-        } else {
-          frequency[word] = 1;
-        }
-      }
-    }
-    return frequency;
+    return addFrequencies(frequencies);
   }
 };
